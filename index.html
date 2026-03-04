@@ -177,6 +177,28 @@
               // Get the header height for offset calculation
               const header = document.getElementById('navigation-header');
               const headerHeight = header ? header.offsetHeight : 80;
+
+              // CRITICAL FIX: To get the correct coordinates, we must un-fix the body FIRST.
+              let bodyTopPosition = 0;
+              const mobileMenu = document.getElementById('mobile-menu');
+              const wasActive = mobileMenu && mobileMenu.classList.contains('active');
+              if (wasActive) {
+                bodyTopPosition = Math.abs(parseFloat(document.body.style.top || 0));
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.getElementById('menu-icon').classList.remove('hidden');
+                document.getElementById('close-icon').classList.add('hidden');
+
+                // Jump to the original scroll position so the element measurements are correct
+                window.scrollTo(0, bodyTopPosition);
+              }
+
+              // Now measure the element's true position on the restored document flow
               const elementRect = targetElement.getBoundingClientRect();
               const absoluteElementTop = elementRect.top + window.pageYOffset;
               // Check if mobile viewport (768px or less)
@@ -198,19 +220,6 @@
                 top: scrollToPosition,
                 behavior: isMobile ? 'auto' : 'smooth'
               });
-              // Close mobile menu if open
-              const mobileMenu = document.getElementById('mobile-menu');
-              if (mobileMenu && mobileMenu.classList.contains('active')) {
-                mobileMenu.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                document.body.style.left = '';
-                document.body.style.right = '';
-                document.getElementById('menu-icon').classList.remove('hidden');
-                document.getElementById('close-icon').classList.add('hidden');
-              }
             }
           });
         });
