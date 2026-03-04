@@ -286,7 +286,7 @@ header.header-scrolled {
   border-radius: .25rem;
   border-width: 1px;
   color: rgb(219 39 119/var(--tw-text-opacity, 1));
-  content: "N8 Exclusive";
+  content: "";
   display: inline-block;
   flex-shrink: 0;
   font-size: .75rem;
@@ -569,7 +569,7 @@ header.header-scrolled .menu-list>li .dropdown {
   border-radius: .25rem;
   border-width: 1px;
   color: rgb(219 39 119/var(--tw-text-opacity, 1));
-  content: "N8 Exclusive";
+  content: "";
   display: inline-block;
   flex-shrink: 0;
   font-size: .75rem;
@@ -6782,7 +6782,6 @@ p>a {
   /* Prevent image flashing */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  will-change: transform;
 }
 
 /* Prevent flashing in scroll columns */
@@ -6802,11 +6801,11 @@ p>a {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
-  
+
   #tournaments .grid {
     gap: 1rem;
   }
-  
+
   /* Text content section for mobile */
   #tournaments .h-full.px-6 {
     background: rgba(0, 0, 0, 0.85) !important;
@@ -6816,25 +6815,25 @@ p>a {
     margin: 0 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   }
-  
+
   #tournaments h3 {
     font-size: 1.75rem !important;
     line-height: 2rem !important;
     margin-bottom: 0.75rem !important;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   }
-  
+
   #tournaments h3 .gradient-text-cyan {
     display: inline;
   }
-  
+
   #tournaments p {
     font-size: 0.9rem !important;
     line-height: 1.5rem !important;
     margin-bottom: 1rem !important;
     color: rgba(255, 255, 255, 0.95) !important;
   }
-  
+
   #tournaments button {
     width: 100%;
     justify-content: center;
@@ -6842,7 +6841,7 @@ p>a {
     font-size: 1rem;
     font-weight: 600;
   }
-  
+
   #tournaments a.w-full {
     display: block;
     width: 100%;
@@ -6855,7 +6854,7 @@ p>a {
     padding-top: 1.25rem !important;
     padding-bottom: 1.25rem !important;
   }
-  
+
   /* Optimized height for iPhone screens - showing 1.5 cards for peek effect */
   #tournaments .relative.h-\[650px\] {
     height: 320px !important;
@@ -6865,16 +6864,16 @@ p>a {
     margin-left: 0.75rem;
     margin-right: 0.75rem;
   }
-  
+
   #tournaments .flex.gap-3 {
     gap: 0.375rem !important;
   }
-  
+
   /* Show third column on mobile for better composition */
   #tournaments .hidden.md\:block {
     display: block !important;
   }
-  
+
   /* Adjust scroll card sizing for mobile - smaller images with more spacing */
   .scroll-card {
     border-radius: 0.375rem;
@@ -6883,22 +6882,22 @@ p>a {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   /* Optimize gradient overlays for mobile */
   #tournaments .h-32 {
     height: 2.5rem !important;
   }
-  
+
   #tournaments h3 {
     font-size: 1.5rem !important;
     line-height: 1.875rem !important;
   }
-  
+
   #tournaments p {
     font-size: 0.875rem !important;
     line-height: 1.4rem !important;
   }
-  
+
   /* Reduce internal padding of text content */
   #tournaments .h-full.px-6 {
     padding: 1rem 0.875rem !important;
@@ -6910,12 +6909,12 @@ p>a {
   #tournaments .relative.h-\[650px\] {
     height: 500px !important;
   }
-  
+
   #tournaments .h-full.px-6 {
     margin: 0 2rem;
     padding: 2rem 1.75rem !important;
   }
-  
+
   #tournaments h3 {
     font-size: 2rem !important;
     line-height: 2.5rem !important;

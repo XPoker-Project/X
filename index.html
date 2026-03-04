@@ -16,7 +16,7 @@
   <!-- Facebook Open Graph data -->
   <meta property="og:title" content="X Poker - 線上撲克遊戲平台">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://your-domain.com">
+  <meta property="og:url" content="https://x-poker.net/">
   <meta property="og:image" content="Webite_Final_PNG/Xpoker_Logo.webp">
   <meta property="og:image:type" content="image/webp">
   <meta property="og:description" content="X Poker 提供各種各樣的撲克遊戲和錦標賽，為新玩家提供豐厚的獎金和促銷活動。立即加入體驗精彩撲克遊戲！">
@@ -41,9 +41,9 @@
       rel="stylesheet" type="text/css" />
   </noscript>
 
-  <link rel="preload" href="css/critical-CWy-A947.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="css/critical-CWy-A947.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript>
-    <link rel="stylesheet" href="css/critical-CWy-A947.css">
+    <link rel="stylesheet" href="css/critical-CWy-A947.min.css">
   </noscript>
   <link rel="prefetch" href="/vite/assets/application-CaT4H7d6.css" as="style">
 
@@ -371,11 +371,11 @@
         <div
           class="gap-4 flex max-w-screen-2xl mx-auto items-center justify-between p-4 lg:p-6 xl:p-8 group-[.header-scrolled]:p-4 transition-all">
           <div class="shrink-0 grid place-items-center">
-            <a class="inline-block cursor-pointer" id="header-icon-natural8" href="#">
+            <a class="inline-block cursor-pointer" id="header-icon-x-poker" href="#">
               <picture>
                 <source srcset="Xpoker_image/Xpoker_Logo.webp" type="image/webp">
-                <img src="Xpoker_image/Xpoker_Logo.webp" alt="Natural8 logo" class="h-8 w-auto sm:h-10" loading="eager"
-                  fetchpriority="high">
+                <img src="Xpoker_image/Xpoker_Logo.webp" alt="X-Poker logo" class="h-8 w-auto sm:h-10" width="135"
+                  height="40" loading="eager" fetchpriority="high">
               </picture>
             </a>
           </div>
@@ -387,23 +387,22 @@
                   <!-- Navigation items -->
                   <li>
                     <a class="subheader-button text-xs xl:text-sm hover:text-gray-300 cursor-pointer"
-                      id="header-link-getting-started-index" href="#navigation-header">首頁</a>
+                      id="header-link-home-index" href="#navigation-header">首頁</a>
                   </li>
                   <li class="inline-block">
                     <a class="subheader-button text-xs xl:text-sm hover:text-gray-300 cursor-pointer"
-                      id="header-link-tournaments-index" href="#buy-chips-section">出入金教學</a>
+                      id="header-link-deposit-index" href="#buy-chips-section">出入金教學</a>
                   </li>
                   <li class="inline-block with-dropdown">
-                    <a class="text-xs xl:text-sm hover:text-gray-300 cursor-pointer" id="header-link-poker-index"
+                    <a class="text-xs xl:text-sm hover:text-gray-300 cursor-pointer" id="header-link-app-index"
                       href="#app-download">App 下載</a>
                   </li>
                   <li class="inline-block with-dropdown">
-                    <a class="subheader-button text-xs xl:text-sm hover:text-gray-300 cursor-pointer"
-                      id="header-link-casino-index" href="#">遊戲技巧</a>
+                    <a class="subheader-button text-xs xl:text-sm hover:text-gray-300 cursor-pointer" href="#">遊戲技巧</a>
                   </li>
                   <li class="inline-block with-dropdown">
                     <a class="subheader-button text-xs xl:text-sm hover:text-gray-300 cursor-pointer"
-                      id="header-link-ambassadors-index" href="#club-section">平台推薦</a>
+                      id="header-link-clubs-index" href="#club-section">平台推薦</a>
                   </li>
                   <li>
                     <a class="subheader-button text-xs xl:text-sm hover:text-gray-300 cursor-pointer"
@@ -446,6 +445,7 @@
           <a href="#navigation-header" class="mobile-link">首頁 <span class="arrow-icon">›</span></a>
           <a href="#buy-chips-section" class="mobile-link">出入金教學 <span class="arrow-icon">›</span></a>
           <a href="#app-download" class="mobile-link">App 下載 <span class="arrow-icon">›</span></a>
+          <a href="#" class="mobile-link">遊戲技巧 <span class="arrow-icon">›</span></a>
           <a href="#club-section" class="mobile-link">平台推薦 <span class="arrow-icon">›</span></a>
           <a href="#game-types-section" class="mobile-link">遊戲種類 <span class="arrow-icon">›</span></a>
           <a href="#faq" class="mobile-link">常見問題 <span class="arrow-icon">›</span></a>
@@ -808,10 +808,11 @@
 
       <div class="flex-1 flex justify-center relative motion-reveal motion-float" style="--motion-delay: 0.15s;">
         <picture>
-          <source srcset="Webite_Final_PNG/IMG2-360.webp 360w, Webite_Final_PNG/IMG2-720.webp 720w"
+          <source
+            srcset="Webite_Final_PNG/IMG2-360.webp 360w, Webite_Final_PNG/IMG2-520.webp 520w, Webite_Final_PNG/IMG2-720.webp 720w"
             sizes="(max-width: 768px) 90vw, 620px" type="image/webp">
           <img src="Webite_Final_PNG/IMG2-360.webp" alt="X-Poker App Preview" class="max-w-[640px] w-full select-none"
-            loading="eager" fetchpriority="high" />
+            width="640" height="640" loading="eager" fetchpriority="high" />
         </picture>
       </div>
 
@@ -855,7 +856,7 @@
                   class="w-40 h-40 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src="Webite_Final_PNG/Country_台湾-128.webp"
                     srcset="Webite_Final_PNG/Country_台湾-128.webp 128w, Webite_Final_PNG/Country_台湾-256.webp 256w"
-                    sizes="128px" alt="Taiwan" class="w-32 h-32 object-contain" loading="lazy">
+                    sizes="128px" alt="Taiwan" class="w-32 h-32 object-contain" width="128" height="128" loading="lazy">
                 </div>
               </div>
 
@@ -885,7 +886,7 @@
                   class="w-40 h-40 rounded-lg bg-gradient-to-br from-blue-500/20 to-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src="Webite_Final_PNG/Country_台湾-128.webp"
                     srcset="Webite_Final_PNG/Country_台湾-128.webp 128w, Webite_Final_PNG/Country_台湾-256.webp 256w"
-                    sizes="128px" alt="Taiwan" class="w-32 h-32 object-contain" loading="lazy">
+                    sizes="128px" alt="Taiwan" class="w-32 h-32 object-contain" width="128" height="128" loading="lazy">
                 </div>
               </div>
 
@@ -915,7 +916,8 @@
                   class="w-40 h-40 rounded-lg bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src="Webite_Final_PNG/Country_马来西亚-128.webp"
                     srcset="Webite_Final_PNG/Country_马来西亚-128.webp 128w, Webite_Final_PNG/Country_马来西亚-256.webp 256w"
-                    sizes="128px" alt="Malaysia" class="w-32 h-32 object-contain" loading="lazy">
+                    sizes="128px" alt="Malaysia" class="w-32 h-32 object-contain" width="128" height="128"
+                    loading="lazy">
                 </div>
               </div>
 
@@ -945,7 +947,8 @@
                   class="w-40 h-40 rounded-lg bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src="Webite_Final_PNG/Country_菲律宾-128.webp"
                     srcset="Webite_Final_PNG/Country_菲律宾-128.webp 128w, Webite_Final_PNG/Country_菲律宾-256.webp 256w"
-                    sizes="128px" alt="Philippines" class="w-32 h-32 object-contain" loading="lazy">
+                    sizes="128px" alt="Philippines" class="w-32 h-32 object-contain" width="128" height="128"
+                    loading="lazy">
                 </div>
               </div>
 
@@ -1144,7 +1147,7 @@
               <div class="payment-card-inner">
                 <img src="Webite_Final_PNG/Button_转账-272.webp"
                   srcset="Webite_Final_PNG/Button_转账-272.webp 272w, Webite_Final_PNG/Button_转账-544.webp 544w"
-                  sizes="272px" alt="網銀轉帳" loading="lazy">
+                  sizes="272px" alt="網銀轉帳" width="272" height="272" loading="lazy">
               </div>
             </div>
             <p class="text-white text-4xl font-semibold mt-4">網銀轉帳</p>
@@ -1156,7 +1159,7 @@
               <div class="payment-card-inner">
                 <img src="Webite_Final_PNG/Button_街口-272.webp"
                   srcset="Webite_Final_PNG/Button_街口-272.webp 272w, Webite_Final_PNG/Button_街口-544.webp 544w"
-                  sizes="272px" alt="街口支付" loading="lazy">
+                  sizes="272px" alt="街口支付" width="272" height="272" loading="lazy">
               </div>
             </div>
             <p class="text-white text-4xl font-semibold mt-4">街口支付</p>
@@ -1168,7 +1171,7 @@
               <div class="payment-card-inner">
                 <img src="Webite_Final_PNG/Button_USDT-272.webp"
                   srcset="Webite_Final_PNG/Button_USDT-272.webp 272w, Webite_Final_PNG/Button_USDT-544.webp 544w"
-                  sizes="272px" alt="虛擬貨幣 USDT" loading="lazy">
+                  sizes="272px" alt="虛擬貨幣 USDT" width="272" height="272" loading="lazy">
               </div>
             </div>
             <p class="text-white text-4xl font-semibold mt-4">虛擬貨幣 USDT</p>
@@ -1447,7 +1450,7 @@
           <source srcset="Webite_Final_PNG/IMG1-520.webp 520w, Webite_Final_PNG/IMG1-1040.webp 1040w"
             sizes="(max-width: 768px) 90vw, 520px" type="image/webp">
           <img src="Webite_Final_PNG/IMG1-520.webp" alt="X-Poker APP Download" class="max-w-[520px] w-full select-none"
-            loading="lazy" />
+            width="520" height="520" loading="lazy" />
         </picture>
       </div>
 
@@ -1934,11 +1937,12 @@
       </p>
 
       <p class="text-zinc-400 text-sm">
-        Copyright © 2024 X-Poker線上德州撲克 | 台灣德州撲克俱樂部推薦！ | Powered by X-Poker
+        Copyright © <span id="current-year">2024</span> X-Poker線上德州撲克 | 台灣德州撲克俱樂部推薦！ | Powered by X-Poker
       </p>
     </div>
   </footer>
 
+  <script>document.getElementById("current-year").textContent = new Date().getFullYear();</script>
 </body>
 
 </html>
