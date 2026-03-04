@@ -459,7 +459,7 @@
 
     <!-- Sticky Navigation Scroll Effect -->
     <script>
-      window.addEventListener('scroll', function() {
+      window.addEventListener('scroll', function () {
         const nav = document.getElementById('navigation-header');
         if (window.scrollY > 50) {
           nav.classList.add('scrolled');
@@ -471,11 +471,11 @@
 
     <!-- Smooth Scroll with Optimal Positioning for Navigation Links -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         // Select all navigation links that point to sections
         const navLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
         navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
+          link.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
@@ -518,7 +518,7 @@
     </script>
 
     <script>
-      window.addEventListener('pageshow', function() {
+      window.addEventListener('pageshow', function () {
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenu) {
           mobileMenu.classList.remove('active');
@@ -535,7 +535,7 @@
 
     <!-- Motion reveal observer -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         const motionItems = document.querySelectorAll('.motion-reveal');
         if (!motionItems.length) return;
         const observer = new IntersectionObserver(
@@ -547,16 +547,16 @@
               }
             });
           }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -10% 0px'
-          }
+          threshold: 0.15,
+          rootMargin: '0px 0px -10% 0px'
+        }
         );
         motionItems.forEach(item => observer.observe(item));
       });
     </script>
 
     <!-- Sticky Floating Customer Service Button -->
-    <a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer" class="line-cs-button">
+    <a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer" class="line-cs-button">
       <div class="line-cs-container">
         <div class="line-cs-text">需要小編協助嗎？</div>
         <div class="line-cs-icon-wrapper">
@@ -967,7 +967,7 @@
 
       <!-- More Clubs Button -->
       <div class="mt-8 mb-8 flex justify-center">
-        <a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer" class="inline-block">
+        <a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer" class="inline-block">
           <button
             class="nav-animated-btn relative bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 rounded-full px-8 py-3 text-sm text-white font-normal transition duration-200 z-10 overflow-hidden whitespace-nowrap">
             更多俱樂部資訊 →
@@ -1296,8 +1296,7 @@
             <p class="max-w-2xl mb-6 text-base text-white/90 leading-relaxed">
               X-Poker 錦標賽提供每日多場不同的比賽，每位玩家有固定籌碼，輸光即淘汰，最後一人贏光所有籌碼成為冠軍！比賽節奏快、玩法多、獎勵豐厚，隨時都能挑戰自己的策略和技 巧，享受公平又精彩的撲克對決！
             </p>
-            <a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer"
-              class="inline-block w-full lg:w-auto">
+            <a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer" class="inline-block w-full lg:w-auto">
               <button
                 class="nav-animated-btn relative bg-gradient-to-r from-blue-700 to-blue-700 rounded-full px-6 py-3 text-zinc-200 transition duration-200 z-10 overflow-hidden">
                 查看所有錦標賽
@@ -1795,10 +1794,10 @@
               <span class="gradient-text-cyan">常見問題</span><br />(FAQ)
             </h2>
             <p class="text-lg text-white/70 leading-relaxed mt-6 mb-8">
-              如果您在使用過程中遇到任何問題或有任何疑問，歡迎隨時聯繫我們的<a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer"
+              如果您在使用過程中遇到任何問題或有任何疑問，歡迎隨時聯繫我們的<a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer"
                 class="gradient-text-cyan font-semibold underline hover:text-cyan-300 transition-colors">專業客服團隊</a>。
             </p>
-            <a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer" class="inline-block">
+            <a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer" class="inline-block">
               <button
                 class="nav-animated-btn relative bg-gradient-to-r from-blue-700 to-blue-700 rounded-full px-6 py-3 text-zinc-200 transition duration-200 z-10 overflow-hidden">
                 聯繫客服
@@ -1820,7 +1819,7 @@
                 </svg>
               </summary>
               <div class="py-6 text-white/70 leading-relaxed">
-                <p>聯繫<a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer"
+                <p>聯繫<a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer"
                     class="gradient-text-cyan font-semibold underline hover:text-cyan-300 transition-colors">客服</a>索取俱樂部資訊並且告知客服人員<span
                     class="gradient-text-cyan font-semibold">遊戲ID</span>即可通過申請～</p>
               </div>
@@ -1852,7 +1851,7 @@
                 </svg>
               </summary>
               <div class="py-6 text-white/70 leading-relaxed">
-                <p>請聯繫<a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer"
+                <p>請聯繫<a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer"
                     class="gradient-text-cyan font-semibold underline hover:text-cyan-300 transition-colors">客服</a>協助您解決此問題～
                 </p>
               </div>
@@ -1869,7 +1868,7 @@
                 </svg>
               </summary>
               <div class="py-6 text-white/70 leading-relaxed">
-                <p>對的喔～俱樂部裡面的桌子是需要向<a href="https://lin.ee/MWsYX7D" target="_blank" rel="noopener noreferrer"
+                <p>對的喔～俱樂部裡面的桌子是需要向<a href="https://lin.ee/MWsYX7D" rel="noopener noreferrer"
                     class="gradient-text-cyan font-semibold underline hover:text-cyan-300 transition-colors">客服</a><span
                     class="gradient-text-cyan font-semibold">購買籌碼</span>才能開始遊戲～</p>
               </div>
@@ -1902,10 +1901,11 @@
                 </svg>
               </summary>
               <div class="py-6 text-white/70 leading-relaxed">
-        <p>您只需要前往 <a href="https://apps.apple.com/us/app/x-poker-poker-with-friends/id1534470447"
+                <p>您只需要前往 <a href="https://apps.apple.com/us/app/x-poker-poker-with-friends/id1534470447"
                     target="_blank"
                     class="gradient-text-cyan font-semibold underline hover:text-cyan-300 transition-colors">App
-          Store</a> 或 <a href="https://github.com/ZhengBinTer/X/releases/download/v1.12.71.0/X-Poker1.12.71.0.apk"
+                    Store</a> 或 <a
+                    href="https://github.com/ZhengBinTer/X/releases/download/v1.12.71.0/X-Poker1.12.71.0.apk"
                     target="_blank"
                     class="gradient-text-cyan font-semibold underline hover:text-cyan-300 transition-colors">Google
                     Play</a> 下載 <span class="gradient-text-cyan font-semibold">Xpoker</span>，安裝後依照指示填寫基本資料即可完成<span
