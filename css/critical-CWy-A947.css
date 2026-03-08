@@ -88,7 +88,12 @@ header.header-scrolled {
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   background-color: #18181bb3;
   border-bottom-width: 1px;
-  border-color: #fafafa40
+  border-color: #fafafa40;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, backdrop-filter;
 }
 
 @media (max-width:640px) {
