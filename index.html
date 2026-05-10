@@ -59,8 +59,6 @@
   </script>
 
   <!-- Mobile Viewport Fix -->
-
-
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -538,6 +536,496 @@
       </div>
 
     </section>
+
+    <!-- Daily Redeem Code Section -->
+    <section id="daily-redeem-section" class="container mx-auto px-6 lg:px-20 py-16 lg:py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        
+        <!-- Left Side: Scratch Card -->
+        <div class="redeem-card-container">
+          <div class="text-center mb-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-3">
+              <span class="neon-text">♠ 每日 Redeem Code ♠</span>
+            </h2>
+            <p class="text-gray-300 text-base md:text-lg">
+              每日提供不同的兑换码，前往客服兑换您的奖励！
+            </p>
+          </div>
+
+          <!-- Scratch Card -->
+          <div class="scratch-card-wrapper relative">
+            <div class="scratch-card">
+              <!-- Hidden Code (Behind Canvas) -->
+              <div class="code-reveal">
+                <div class="redeem-code-display" id="redeemCodeDisplay">
+                  XPKR0000
+                </div>
+                <div class="code-validity">
+                  • CODE VALID TODAY ONLY •
+                </div>
+              </div>
+              
+              <!-- Scratch Canvas Overlay -->
+              <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Copy Button -->
+          <div class="text-center mt-6">
+            <button id="copyCodeBtn" class="copy-code-btn">
+              <span id="copyBtnText">复制代码</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="inline-block ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: Instructions -->
+        <div class="instructions-panel">
+          <div class="glass-card">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center neon-text-subtle">
+              如何兑换？
+            </h3>
+
+            <div class="space-y-6">
+              <!-- Step 1 -->
+              <div class="instruction-step">
+                <div class="step-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
+                </div>
+                <div class="step-content">
+                  <h4 class="text-xl font-semibold text-white mb-1">刮开兑换码</h4>
+                  <p class="text-gray-400">刮开上方遮罩获取兑换码</p>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="instruction-step">
+                <div class="step-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div class="step-content">
+                  <h4 class="text-xl font-semibold text-white mb-1">联系客服</h4>
+                  <p class="text-gray-400">将兑换码提供给客服人员</p>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="instruction-step">
+                <div class="step-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                  </svg>
+                </div>
+                <div class="step-content">
+                  <h4 class="text-xl font-semibold text-white mb-1">领取奖励</h4>
+                  <p class="text-gray-400">确认后即可领取奖励</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Styling for Daily Redeem Section -->
+    <style>
+      /* Neon Text Effects */
+      .neon-text {
+        background: linear-gradient(to right, #60a5fa, #22d3ee, #0ea5e9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.5));
+        animation: neonPulse 3s ease-in-out infinite;
+      }
+
+      .neon-text-subtle {
+        color: #60a5fa;
+        text-shadow: 0 0 10px rgba(96, 165, 250, 0.5), 0 0 20px rgba(96, 165, 250, 0.3);
+      }
+
+      @keyframes neonPulse {
+        0%, 100% { filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.5)); }
+        50% { filter: drop-shadow(0 0 30px rgba(34, 211, 238, 0.8)); }
+      }
+
+      /* Scratch Card Wrapper */
+      .scratch-card-wrapper {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .scratch-card {
+        position: relative;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+        border-radius: 20px;
+        padding: 40px 30px;
+        box-shadow: 
+          0 0 30px rgba(34, 211, 238, 0.3),
+          0 0 60px rgba(34, 211, 238, 0.1),
+          inset 0 0 40px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        min-height: 280px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Code Display (Hidden behind canvas) */
+      .code-reveal {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .redeem-code-display {
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: 8px;
+        color: #22d3ee;
+        text-shadow: 
+          0 0 20px rgba(34, 211, 238, 0.8),
+          0 0 40px rgba(34, 211, 238, 0.5),
+          0 0 60px rgba(34, 211, 238, 0.3);
+        margin-bottom: 20px;
+        font-family: 'Courier New', monospace;
+      }
+
+      .code-validity {
+        color: #60a5fa;
+        font-size: 14px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+      }
+
+      /* Scratch Canvas Overlay */
+      .scratch-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: grab;
+        z-index: 10;
+        border-radius: 20px;
+      }
+
+      .scratch-canvas:active {
+        cursor: grabbing;
+      }
+
+      /* Copy Button */
+      .copy-code-btn {
+        background: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%);
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 14px 40px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 
+          0 0 20px rgba(34, 211, 238, 0.4),
+          0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .copy-code-btn:hover {
+        background: linear-gradient(135deg, #22d3ee 0%, #60a5fa 100%);
+        box-shadow: 
+          0 0 30px rgba(34, 211, 238, 0.6),
+          0 6px 20px rgba(0, 0, 0, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .copy-code-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Glass Card for Instructions */
+      .glass-card {
+        background: rgba(10, 10, 30, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 32px 28px;
+        border: 2px solid rgba(96, 165, 250, 0.2);
+        box-shadow: 
+          0 0 30px rgba(34, 211, 238, 0.15),
+          inset 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Instruction Steps */
+      .instruction-step {
+        display: flex;
+        align-items: start;
+        gap: 16px;
+        padding: 16px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        border: 1px solid rgba(96, 165, 250, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .instruction-step:hover {
+        background: rgba(96, 165, 250, 0.05);
+        border-color: rgba(96, 165, 250, 0.3);
+        box-shadow: 0 0 20px rgba(34, 211, 238, 0.1);
+        transform: translateX(4px);
+      }
+
+      .step-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(34, 211, 238, 0.2));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #22d3ee;
+        border: 1px solid rgba(34, 211, 238, 0.3);
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .redeem-code-display {
+          font-size: 36px;
+          letter-spacing: 4px;
+        }
+
+        .scratch-card {
+          padding: 30px 20px;
+          min-height: 240px;
+        }
+
+        .glass-card {
+          padding: 24px 20px;
+        }
+      }
+    </style>
+
+    <!-- JavaScript for Scratch Card Functionality -->
+    <script>
+      (function() {
+        // Predefined redeem codes array
+        const redeemCodes = [
+          "XPKR5827",
+          "XPKR9142",
+          "XPKR2251",
+          "XPKR7781",
+          "XPKR3456",
+          "XPKR8923",
+          "XPKR1678",
+          "XPKR4509",
+          "XPKR6234",
+          "XPKR7890",
+          "XPKR2345",
+          "XPKR9876",
+          "XPKR5432",
+          "XPKR8765",
+          "XPKR3210"
+        ];
+
+        // Get or generate redeem code
+        function getRedeemCode() {
+          const storageKey = 'dailyRedeemCode';
+          const dateKey = 'redeemCodeDate';
+          const today = new Date().toDateString();
+          
+          // Check if we have a code for today
+          const savedDate = localStorage.getItem(dateKey);
+          const savedCode = localStorage.getItem(storageKey);
+          
+          if (savedDate === today && savedCode) {
+            return savedCode;
+          }
+          
+          // Generate new code for today
+          const randomCode = redeemCodes[Math.floor(Math.random() * redeemCodes.length)];
+          localStorage.setItem(storageKey, randomCode);
+          localStorage.setItem(dateKey, today);
+          
+          return randomCode;
+        }
+
+        // Initialize redeem code
+        const currentCode = getRedeemCode();
+        const codeDisplay = document.getElementById('redeemCodeDisplay');
+        if (codeDisplay) {
+          codeDisplay.textContent = currentCode;
+        }
+
+        // Scratch Canvas Setup
+        const canvas = document.getElementById('scratchCanvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let isScratching = false;
+        let isRevealed = false;
+
+        // Set canvas size
+        function resizeCanvas() {
+          const card = canvas.parentElement;
+          canvas.width = card.offsetWidth;
+          canvas.height = card.offsetHeight;
+          
+          if (!isRevealed) {
+            drawScratchLayer();
+          }
+        }
+
+        // Draw scratch layer
+        function drawScratchLayer() {
+          // Metallic silver gradient background
+          const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+          gradient.addColorStop(0, '#c0c0c0');
+          gradient.addColorStop(0.3, '#e8e8e8');
+          gradient.addColorStop(0.5, '#f5f5f5');
+          gradient.addColorStop(0.7, '#d0d0d0');
+          gradient.addColorStop(1, '#b0b0b0');
+          
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          
+          // Add texture pattern
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+          for (let i = 0; i < canvas.width; i += 4) {
+            ctx.fillRect(i, 0, 2, canvas.height);
+          }
+          
+          // "SCRATCH HERE" text
+          ctx.fillStyle = '#333';
+          ctx.font = 'bold 28px Arial';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('SCRATCH HERE', canvas.width / 2, canvas.height / 2 - 10);
+          
+          ctx.font = '16px Arial';
+          ctx.fillStyle = '#666';
+          ctx.fillText('👆 滑动刮开', canvas.width / 2, canvas.height / 2 + 25);
+        }
+
+        // Scratch function
+        function scratch(x, y) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.beginPath();
+          ctx.arc(x, y, 30, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+
+        // Check if scratched enough
+        function checkRevealed() {
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const pixels = imageData.data;
+          let transparent = 0;
+          
+          for (let i = 3; i < pixels.length; i += 4) {
+            if (pixels[i] < 128) transparent++;
+          }
+          
+          const percentRevealed = (transparent / (pixels.length / 4)) * 100;
+          
+          if (percentRevealed > 50 && !isRevealed) {
+            isRevealed = true;
+            // Fade out canvas
+            canvas.style.transition = 'opacity 0.5s';
+            canvas.style.opacity = '0';
+            setTimeout(() => {
+              canvas.style.display = 'none';
+            }, 500);
+          }
+        }
+
+        // Mouse events
+        canvas.addEventListener('mousedown', (e) => {
+          isScratching = true;
+          const rect = canvas.getBoundingClientRect();
+          scratch(e.clientX - rect.left, e.clientY - rect.top);
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+          if (isScratching) {
+            const rect = canvas.getBoundingClientRect();
+            scratch(e.clientX - rect.left, e.clientY - rect.top);
+            checkRevealed();
+          }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+          isScratching = false;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+          isScratching = false;
+        });
+
+        // Touch events
+        canvas.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          isScratching = true;
+          const rect = canvas.getBoundingClientRect();
+          const touch = e.touches[0];
+          scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+          if (isScratching) {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+            checkRevealed();
+          }
+        });
+
+        canvas.addEventListener('touchend', () => {
+          isScratching = false;
+        });
+
+        // Copy to clipboard functionality
+        const copyBtn = document.getElementById('copyCodeBtn');
+        const copyBtnText = document.getElementById('copyBtnText');
+        
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(currentCode);
+              const originalText = copyBtnText.textContent;
+              copyBtnText.textContent = '✓ 已复制！';
+              copyBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #22d3ee 100%)';
+              
+              setTimeout(() => {
+                copyBtnText.textContent = originalText;
+                copyBtn.style.background = 'linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%)';
+              }, 2000);
+            } catch (err) {
+              console.error('Failed to copy:', err);
+              copyBtnText.textContent = '复制失败';
+              setTimeout(() => {
+                copyBtnText.textContent = '复制代码';
+              }, 2000);
+            }
+          });
+        }
+
+        // Initialize
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+      })();
+    </script>
 
     <!-- Using a rectengle block for showing purpose -->
 
