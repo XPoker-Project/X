@@ -817,215 +817,298 @@
       }
     </style>
 
-    <!-- JavaScript for Scratch Card Functionality -->
+    <!--JavaScript for Scratch Card Functionality -->
     <script>
       (function() {
-        // Predefined redeem codes array
-        const redeemCodes = [
-          "XPKR5827",
-          "XPKR9142",
-          "XPKR2251",
-          "XPKR7781",
-          "XPKR3456",
-          "XPKR8923",
-          "XPKR1678",
-          "XPKR4509",
-          "XPKR6234",
-          "XPKR7890",
-          "XPKR2345",
-          "XPKR9876",
-          "XPKR5432",
-          "XPKR8765",
-          "XPKR3210"
-        ];
+        // ========================================
+        // WEEKLY CAMPAIGN: LOAD CODES FROM CSV
+        // ========================================
+        // Codes loaded from: redeem_codes.csv
+        // Format: code,day,day_name
+        // Code format: 3 letters + 4 numbers (e.g., ABC1234)
+        // Day digit (1-7) appears randomly in the 4 numbers
+        // Sunday uses 7, not 0
+        // Examples: MSK3421 (Monday has 1), DNQ9922 (Tuesday has 2)
+        // ========================================
 
-        // Get or generate redeem code
+        let weeklyCodeBatches = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []};
+        let codesLoaded = false;
+
+        // Load codes from CSV file
+        async function loadCodesFromCSV() {
+          try {
+            const response = await fetch('redeem_codes.csv');
+            const csvText = await response.text();
+            
+            // Parse CSV
+            const lines = csvText.trim().split('\n');
+            lines.shift(); // Remove header row
+            
+            lines.forEach(line => {
+              const [code, day, dayName] = line.split(',');
+              const dayNum = parseInt(day);
+              
+              if (weeklyCodeBatches[dayNum]) {
+                weeklyCodeBatches[dayNum].push(code.trim());
+              }
+            });
+            
+            codesLoaded = true;
+            console.log('✅ Redeem codes loaded:', Object.keys(weeklyCodeBatches).map(d => `Day ${d}: ${weeklyCodeBatches[d].length} codes`).join(', '));
+            
+            // Initialize code display after loading
+            initializeRedeemCode();
+          } catch (error) {
+            console.error('❌ Failed to load redeem codes from CSV:', error);
+            codesLoaded = false;
+          }
+        }
+
+        // Get or generate redeem code based on day of week
         function getRedeemCode() {
-          const storageKey = 'dailyRedeemCode';
+          if (!codesLoaded) {
+            console.warn('⚠️ Codes not loaded yet');
+            return 'LOADING...';
+          }
+
+          const today = new Date();
+          let dayOfWeek = today.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+          
+          // Convert Sunday from 0 to 7 to match our code format
+          if (dayOfWeek === 0) {
+            dayOfWeek = 7;
+          }
+          
+          const dateString = today.toDateString();
+          
+          const storageKey = 'weeklyRedeemCode';
           const dateKey = 'redeemCodeDate';
-          const today = new Date().toDateString();
+          const usedCodesKey = 'usedRedeemCodes';
           
           // Check if we have a code for today
           const savedDate = localStorage.getItem(dateKey);
           const savedCode = localStorage.getItem(storageKey);
           
-          if (savedDate === today && savedCode) {
+          if (savedDate === dateString && savedCode) {
+            // Same day, return existing code
             return savedCode;
           }
           
-          // Generate new code for today
-          const randomCode = redeemCodes[Math.floor(Math.random() * redeemCodes.length)];
+          // New day - reset used codes if date changed
+          if (savedDate !== dateString) {
+            localStorage.removeItem(usedCodesKey);
+          }
+          
+          // Get today's code batch
+          const todaysBatch = weeklyCodeBatches[dayOfWeek];
+          
+          if (!todaysBatch || todaysBatch.length === 0) {
+            console.error('No codes available for day:', dayOfWeek);
+            return 'ERROR';
+          }
+          
+          // Get list of used codes today
+          const usedCodes = JSON.parse(localStorage.getItem(usedCodesKey) || '[]');
+          
+          // Filter available codes (not yet used)
+          const availableCodes = todaysBatch.filter(code => !usedCodes.includes(code));
+          
+          if (availableCodes.length === 0) {
+            console.warn('All codes for today have been used, recycling...');
+            // If all codes used, start fresh
+            localStorage.removeItem(usedCodesKey);
+            return getRedeemCode();
+          }
+          
+          // Pick random code from available ones
+          const randomCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
+          
+          // Save the code and mark it as used
           localStorage.setItem(storageKey, randomCode);
-          localStorage.setItem(dateKey, today);
+          localStorage.setItem(dateKey, dateString);
+          
+          usedCodes.push(randomCode);
+          localStorage.setItem(usedCodesKey, JSON.stringify(usedCodes));
           
           return randomCode;
         }
 
-        // Initialize redeem code
-        const currentCode = getRedeemCode();
-        const codeDisplay = document.getElementById('redeemCodeDisplay');
-        if (codeDisplay) {
-          codeDisplay.textContent = currentCode;
-        }
-
-        // Scratch Canvas Setup
-        const canvas = document.getElementById('scratchCanvas');
-        if (!canvas) return;
-
-        const ctx = canvas.getContext('2d');
-        let isScratching = false;
-        let isRevealed = false;
-
-        // Set canvas size
-        function resizeCanvas() {
-          const card = canvas.parentElement;
-          canvas.width = card.offsetWidth;
-          canvas.height = card.offsetHeight;
-          
-          if (!isRevealed) {
-            drawScratchLayer();
-          }
-        }
-
-        // Draw scratch layer
-        function drawScratchLayer() {
-          // Metallic silver gradient background
-          const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-          gradient.addColorStop(0, '#c0c0c0');
-          gradient.addColorStop(0.3, '#e8e8e8');
-          gradient.addColorStop(0.5, '#f5f5f5');
-          gradient.addColorStop(0.7, '#d0d0d0');
-          gradient.addColorStop(1, '#b0b0b0');
-          
-          ctx.fillStyle = gradient;
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          
-          // Add texture pattern
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-          for (let i = 0; i < canvas.width; i += 4) {
-            ctx.fillRect(i, 0, 2, canvas.height);
+        // Initialize redeem code display
+        function initializeRedeemCode() {
+          const currentCode = getRedeemCode();
+          const codeDisplay = document.getElementById('redeemCodeDisplay');
+          if (codeDisplay) {
+            codeDisplay.textContent = currentCode;
           }
           
-          // "SCRATCH HERE" text
-          ctx.fillStyle = '#333';
-          ctx.font = 'bold 28px Arial';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('SCRATCH HERE', canvas.width / 2, canvas.height / 2 - 10);
-          
-          ctx.font = '16px Arial';
-          ctx.fillStyle = '#666';
-          ctx.fillText('👆 滑动刮开', canvas.width / 2, canvas.height / 2 + 25);
+          // Initialize scratch card
+          initScratchCard(currentCode);
         }
 
-        // Scratch function
-        function scratch(x, y) {
-          ctx.globalCompositeOperation = 'destination-out';
-          ctx.beginPath();
-          ctx.arc(x, y, 30, 0, 2 * Math.PI);
-          ctx.fill();
-        }
+        // Scratch Card Logic
+        function initScratchCard(currentCode) {
+          const canvas = document.getElementById('scratchCanvas');
+          if (!canvas) return;
 
-        // Check if scratched enough
-        function checkRevealed() {
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const pixels = imageData.data;
-          let transparent = 0;
-          
-          for (let i = 3; i < pixels.length; i += 4) {
-            if (pixels[i] < 128) transparent++;
+          const ctx = canvas.getContext('2d');
+          let isScratching = false;
+          let isRevealed = false;
+
+          // Set canvas size
+          function resizeCanvas() {
+            const card = canvas.parentElement;
+            canvas.width = card.offsetWidth;
+            canvas.height = card.offsetHeight;
+            
+            if (!isRevealed) {
+              drawScratchLayer();
+            }
           }
-          
-          const percentRevealed = (transparent / (pixels.length / 4)) * 100;
-          
-          if (percentRevealed > 50 && !isRevealed) {
-            isRevealed = true;
-            // Fade out canvas
-            canvas.style.transition = 'opacity 0.5s';
-            canvas.style.opacity = '0';
-            setTimeout(() => {
-              canvas.style.display = 'none';
-            }, 500);
+
+          // Draw scratch layer
+          function drawScratchLayer() {
+            // Metallic silver gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#c0c0c0');
+            gradient.addColorStop(0.3, '#e8e8e8');
+            gradient.addColorStop(0.5, '#f5f5f5');
+            gradient.addColorStop(0.7, '#d0d0d0');
+            gradient.addColorStop(1, '#b0b0b0');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add texture pattern
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            for (let i = 0; i < canvas.width; i += 4) {
+              ctx.fillRect(i, 0, 2, canvas.height);
+            }
+            
+            // "SCRATCH HERE" text
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 28px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('SCRATCH HERE', canvas.width / 2, canvas.height / 2 - 10);
+            
+            ctx.font = '16px Arial';
+            ctx.fillStyle = '#666';
+            ctx.fillText('👆 滑动刮开', canvas.width / 2, canvas.height / 2 + 25);
           }
-        }
 
-        // Mouse events
-        canvas.addEventListener('mousedown', (e) => {
-          isScratching = true;
-          const rect = canvas.getBoundingClientRect();
-          scratch(e.clientX - rect.left, e.clientY - rect.top);
-        });
+          // Scratch function
+          function scratch(x, y) {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, 2 * Math.PI);
+            ctx.fill();
+          }
 
-        canvas.addEventListener('mousemove', (e) => {
-          if (isScratching) {
+          // Check if scratched enough
+          function checkRevealed() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const pixels = imageData.data;
+            let transparent = 0;
+            
+            for (let i = 3; i < pixels.length; i += 4) {
+              if (pixels[i] < 128) transparent++;
+            }
+            
+            const percentRevealed = (transparent / (pixels.length / 4)) * 100;
+            
+            if (percentRevealed > 50 && !isRevealed) {
+              isRevealed = true;
+              // Fade out canvas
+              canvas.style.transition = 'opacity 0.5s';
+              canvas.style.opacity = '0';
+              setTimeout(() => {
+                canvas.style.display = 'none';
+              }, 500);
+            }
+          }
+
+          // Mouse events
+          canvas.addEventListener('mousedown', (e) => {
+            isScratching = true;
             const rect = canvas.getBoundingClientRect();
             scratch(e.clientX - rect.left, e.clientY - rect.top);
-            checkRevealed();
-          }
-        });
+          });
 
-        canvas.addEventListener('mouseup', () => {
-          isScratching = false;
-        });
+          canvas.addEventListener('mousemove', (e) => {
+            if (isScratching) {
+              const rect = canvas.getBoundingClientRect();
+              scratch(e.clientX - rect.left, e.clientY - rect.top);
+              checkRevealed();
+            }
+          });
 
-        canvas.addEventListener('mouseleave', () => {
-          isScratching = false;
-        });
+          canvas.addEventListener('mouseup', () => {
+            isScratching = false;
+          });
 
-        // Touch events
-        canvas.addEventListener('touchstart', (e) => {
-          e.preventDefault();
-          isScratching = true;
-          const rect = canvas.getBoundingClientRect();
-          const touch = e.touches[0];
-          scratch(touch.clientX - rect.left, touch.clientY - rect.top);
-        });
+          canvas.addEventListener('mouseleave', () => {
+            isScratching = false;
+          });
 
-        canvas.addEventListener('touchmove', (e) => {
-          e.preventDefault();
-          if (isScratching) {
+          // Touch events
+          canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isScratching = true;
             const rect = canvas.getBoundingClientRect();
             const touch = e.touches[0];
             scratch(touch.clientX - rect.left, touch.clientY - rect.top);
-            checkRevealed();
-          }
-        });
+          });
 
-        canvas.addEventListener('touchend', () => {
-          isScratching = false;
-        });
-
-        // Copy to clipboard functionality
-        const copyBtn = document.getElementById('copyCodeBtn');
-        const copyBtnText = document.getElementById('copyBtnText');
-        
-        if (copyBtn) {
-          copyBtn.addEventListener('click', async () => {
-            try {
-              await navigator.clipboard.writeText(currentCode);
-              const originalText = copyBtnText.textContent;
-              copyBtnText.textContent = '✓ 已复制！';
-              copyBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #22d3ee 100%)';
-              
-              setTimeout(() => {
-                copyBtnText.textContent = originalText;
-                copyBtn.style.background = 'linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%)';
-              }, 2000);
-            } catch (err) {
-              console.error('Failed to copy:', err);
-              copyBtnText.textContent = '复制失败';
-              setTimeout(() => {
-                copyBtnText.textContent = '复制代码';
-              }, 2000);
+          canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (isScratching) {
+              const rect = canvas.getBoundingClientRect();
+              const touch = e.touches[0];
+              scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+              checkRevealed();
             }
           });
+
+          canvas.addEventListener('touchend', () => {
+            isScratching = false;
+          });
+
+          // Copy to clipboard functionality
+          const copyBtn = document.getElementById('copyCodeBtn');
+          const copyBtnText = document.getElementById('copyBtnText');
+          
+          if (copyBtn) {
+            copyBtn.addEventListener('click', async () => {
+              try {
+                await navigator.clipboard.writeText(currentCode);
+                const originalText = copyBtnText.textContent;
+                copyBtnText.textContent = '✓ 已复制！';
+                copyBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #22d3ee 100%)';
+                
+                setTimeout(() => {
+                  copyBtnText.textContent = originalText;
+                  copyBtn.style.background = 'linear-gradient(135deg, #0ea5e9 0%, #22d3ee 100%)';
+                }, 2000);
+              } catch (err) {
+                console.error('Failed to copy:', err);
+                copyBtnText.textContent = '复制失败';
+                setTimeout(() => {
+                  copyBtnText.textContent = '复制代码';
+                }, 2000);
+              }
+            });
+          }
+
+          // Initialize
+          resizeCanvas();
+          window.addEventListener('resize', resizeCanvas);
         }
 
-        // Initialize
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        // Load codes on page load
+        loadCodesFromCSV();
       })();
     </script>
+
 
     <!-- Using a rectengle block for showing purpose -->
 
